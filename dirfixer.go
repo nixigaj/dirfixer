@@ -53,13 +53,7 @@ func main() {
 	}
 
 	if !exists {
-		var objName string
-		if isDir {
-			objName = "directory"
-		} else {
-			objName = "file"
-		}
-		_, _ = fmt.Fprintf(os.Stderr, "%s: %s does not exist\n", progSignature, objName)
+		_, _ = fmt.Fprintf(os.Stderr, "%s: path does not exist\n", progSignature)
 		os.Exit(1)
 	}
 
@@ -75,9 +69,9 @@ func main() {
 	err = filepath.Walk(*args.FixPath, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			if args.FailEarly {
-				return fmt.Errorf("iterate over object %s: %w", path, err)
+				return fmt.Errorf("iterate over path %s: %w", path, err)
 			} else {
-				_, _ = fmt.Fprintf(os.Stderr, "%s: failed to iterate over object %s: %v\n", progSignature, path, err)
+				_, _ = fmt.Fprintf(os.Stderr, "%s: failed to iterate over path %s: %v\n", progSignature, path, err)
 			}
 		}
 		if info.IsDir() {
@@ -87,9 +81,9 @@ func main() {
 		}
 		if err != nil {
 			if args.FailEarly {
-				return fmt.Errorf("handle object %s: %w", path, err)
+				return fmt.Errorf("handle path %s: %w", path, err)
 			} else {
-				_, _ = fmt.Fprintf(os.Stderr, "%s: failed to handle object %s: %v\n", progSignature, path, err)
+				_, _ = fmt.Fprintf(os.Stderr, "%s: failed to handle path %s: %v\n", progSignature, path, err)
 			}
 		}
 		return nil
