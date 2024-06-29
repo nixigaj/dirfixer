@@ -1,0 +1,7 @@
+# Editors
+.idea
+.vscode
+
+# Executables
+dirfixer
+dirfixer.exe
